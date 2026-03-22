@@ -57,6 +57,10 @@ if (!array_key_exists('username', $_GET)) {
 		<input type="submit" value="Enter">
 	</form>
 	</div>
+	
+	<p align="center">
+	<img src="/matt/PHP-Casino-Slot-Game/images/scoreboard.png" width=600 height=600/>
+	</p>
 MARK;
 }
 else {
@@ -112,12 +116,12 @@ MARK;
 			$images = array(
 				"/matt/PHP-Casino-Slot-Game/images/slots_bananas.jpg",		// 0
 				"/matt/PHP-Casino-Slot-Game/images/slots_grapes.jpg",		// 1
-				"/matt/PHP-Casino-Slot-Game/images/slots_coins.jpg",			// 2
-				"/matt/PHP-Casino-Slot-Game/images/slots_horse.jpg",			// 3
+				"/matt/PHP-Casino-Slot-Game/images/slots_coins.jpg",		// 2
+				"/matt/PHP-Casino-Slot-Game/images/slots_horse.jpg",		// 3
 				"/matt/PHP-Casino-Slot-Game/images/slots_lucky_charm.jpg",	// 4
 				"/matt/PHP-Casino-Slot-Game/images/slots_bar.jpg",			// 5 
 				"/matt/PHP-Casino-Slot-Game/images/slots_dice.jpg",			// 6
-				"/matt/PHP-Casino-Slot-Game/images/slots_cards.jpg",			// 7
+				"/matt/PHP-Casino-Slot-Game/images/slots_cards.jpg",		// 7
 				"/matt/PHP-Casino-Slot-Game/images/slots_seven.jpg"			// 8
 			);
 
@@ -127,8 +131,15 @@ MARK;
 			for ($i = 0; $i < 3; $i++) {
 				$wheels[$i] = rand(0, 8);
 			}
-
 			
+			// Slot enforcer
+			// $wheels[0] = 0;
+			// $wheels[1] = 0;
+			// $wheels[2] = 0;
+			
+			$win = false;
+			$jackpot = false;
+			$bomb = false;
 			for ($i = 0; $i < 9; $i++) {
 								
 				// Checking if two the same
@@ -138,20 +149,25 @@ MARK;
 						++$howmany;
 					}
 				}
-				
 				if ($howmany == 2) {
 					// Two the same
-					$points += 1;
+					$points += 2;
+					$win = true;
 				}
 				if ($howmany == 3) {
 					// Three the same
+					$win = true;
+					// $bomb = false;
+					// $jackpot = false;
 					if ($i == 0) {
 						// BOMB!
 						$points = 0;
+						$bomb = true;
 					}
 					elseif ($i == 8) {
 						// JACKPOT three 777!
 						$points *= 2;
+						$jackpot = true;
 					}
 					else {
 						// All other same three
@@ -177,6 +193,28 @@ MARK;
 			</p>
 			
 			<div align=center>
+MARK;
+
+			if ($win && ($jackpot || $bomb)) {
+				if ($jackpot) {
+					echo '<h2 color="red">JACKPOT - double points!</h2>';
+				}
+				elseif ($bomb) {
+					echo '<h2 color="red">BANANA - zero points!</h2>';
+				}
+				else {
+					echo '<h2>Hit +10 points</h2>';
+				}
+			}
+			elseif ($win && (!$jackpot && !$bomb)) {
+				echo "<h2>Hit +2 point up</h2>";
+			}
+			else {
+					echo '<h2 color="gray">No win</h2>';
+			}
+				
+				
+			echo <<<MARK
 			<!-- HIT BUTTON --->
 			<form action="index.php" method="GET">
 				<input type="hidden" name="button" value="hit">
@@ -208,8 +246,15 @@ MARK;
 		// CASHOUT BUTTON WAS PRESSED
 		elseif ($button == 'cashout') {
 			
-			// Write CASHOUT here!!!
+			echo('<h1 align="center">Congratulations ' . $user . '! You scored' . $points . ' points!</h1>');
+			
+			echo <<<MARK
+			<p align="center">
+			<img src="/matt/PHP-Casino-Slot-Game/images/Cashout.png" width=600 height=600/>
+			</p>
+MARK;		
 		}
+		
 		
 		// EMERGENCY CATCH
 		else {
