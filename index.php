@@ -49,7 +49,7 @@ if (!array_key_exists('username', $_GET)) {
 	// Username not provided, asking for username.
 	
 	echo <<<MARK
-	<p align="center">Enter your name:</p>
+	<h2 align="center">Enter your name</h2>
 
 	<div align="center">
 	<form action="index.php" method="GET">
@@ -59,7 +59,7 @@ if (!array_key_exists('username', $_GET)) {
 	</div>
 	
 	<p align="center">
-	<img src="/matt/PHP-Casino-Slot-Game/images/scoreboard.png" width=600 height=600/>
+	<img src="/matt/PHP-Casino-Slot-Game/images/scoreboard.png" width=800 height=700/>
 	</p>
 MARK;
 }
@@ -93,7 +93,7 @@ MARK;
 		echo('<input type="hidden" name="username" value="' . $user . '">');
 			
 		echo <<<MARK
-			<input type="image" src="/matt/PHP-Casino-Slot-Game/images/button_hit.jpg" alt="HIT" width=300 height=150/>
+			<input type="image" src="/matt/PHP-Casino-Slot-Game/images/button_hit.jpg" alt="HIT" width=200 height=75/>
 		</form>
 		</div>
 MARK;
@@ -177,7 +177,7 @@ MARK;
 			}
 			
 			echo('<h1 align="center">' . $user . '</h1>');
-			echo('<h2 align="center">' . $points . 'points</h2>');
+			echo('<h2 align="center">' . $points . ' points</h2>');
 			echo <<<MARK
 			<p align="center">
 			<!-- SLOT IMAGES --->
@@ -210,7 +210,7 @@ MARK;
 				echo "<h2>Hit +2 point up</h2>";
 			}
 			else {
-					echo '<h2 color="gray">No win</h2>';
+					echo '<h2 color="gray">No win</h2>'; 
 			}
 				
 				
@@ -224,19 +224,18 @@ MARK;
 			echo('<input type="hidden" name="username" value="' . $user . '">');
 				
 			echo <<<MARK
-				<input type="image" src="/matt/PHP-Casino-Slot-Game/images/button_hit.jpg" alt="HIT" width=300 height=150
-				id="buttonHit" onmouseover="changeHitOnHover()" onmouseleave="changeHitReset()" onmousedown="changeHitOnClick()">
+				<input type="image" src="/matt/PHP-Casino-Slot-Game/images/button_hit.jpg" alt="HIT" width=200 height=75 id="buttonHit" onmouseover="changeHitOnHover()" onmouseleave="changeHitReset()" onmousedown="changeHitOnClick()">
 			</form>
 			<!-- CASHOUT BUTTON --->
 			<form action="index.php" method="GET">
 				<input type="hidden" name="button" value="cashout">
 MARK;
 
+			echo('<input type="hidden" name="points" value="' . $points . '">');
 			echo('<input type="hidden" name="username" value="' . $user . '">');
 			
 			echo <<<MARK
-				<input type="image" src="/matt/PHP-Casino-Slot-Game/images/button_cashout.jpg" alt="CASHOUT" width=300 height=150
-				id="buttonCashout" onmouseover="changeCashoutOnHover()" onmouseleave="changeCashoutReset()" onmousedown="changeCashoutOnClick()">
+				<input type="image" src="/matt/PHP-Casino-Slot-Game/images/button_cashout.jpg" alt="CASHOUT" width=200 height=75 id="buttonCashout" onmouseover="changeCashoutOnHover()" onmouseleave="changeCashoutReset()" onmousedown="changeCashoutOnClick()">
 			</form>
 			</div>
 MARK;
@@ -246,11 +245,13 @@ MARK;
 		// CASHOUT BUTTON WAS PRESSED
 		elseif ($button == 'cashout') {
 			
-			echo('<h1 align="center">Congratulations ' . $user . '! You scored' . $points . ' points!</h1>');
+			echo('<h2 align="center">Congratulations ' . $user . '!</h2>');
+			echo('<h1 align="center">You scored ' . $points . ' points</h1>');
 			
 			echo <<<MARK
 			<p align="center">
-			<img src="/matt/PHP-Casino-Slot-Game/images/Cashout.png" width=600 height=600/>
+			<img src="/matt/PHP-Casino-Slot-Game/images/Cashout.png" width=400 height=400/>
+			<p align="center">Do you wanna <a href="index.php">play again?</a></p>
 			</p>
 MARK;		
 		}
